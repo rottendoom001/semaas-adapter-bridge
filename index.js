@@ -19,10 +19,9 @@ osprey.loadFile(raml)
 
     app.get('/', function(req, res){
       var response = {status: "OK"};
-      raml2html.getHtmlRaml(function(result){
-        console.log("RESULT :", JSON.stringify(result));
-        if(result.status === "OK"){
-          res.send(result);
+      raml2html.getHtmlRaml(raml, function(resHtml){
+        if(resHtml.status === "OK"){
+          res.send(resHtml.data);
         } else {
           res.send(response);
         }
@@ -30,7 +29,6 @@ osprey.loadFile(raml)
     });
     app.post('/event', function(req, res){
       var response = {};
-      console.log("REQUEST : :", req.body );
       var now = times.getCurrentTime();
       response.id = req.body.id;
       response.transactionTime = now.format(utils.DATETIME_FORMAT);
