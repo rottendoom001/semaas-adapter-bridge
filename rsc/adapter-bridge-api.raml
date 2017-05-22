@@ -1,4 +1,4 @@
-#%RAML 0.8
+#%RAML 1.0
 ---
 title: Adapter Bridge API for SEMaaS
 version: 1.0
@@ -10,11 +10,13 @@ documentation:
 /:
   displayName: Adapter Bridge API for SEMaaS
   get:
-    description: Adapter Bridge API for SEMaaS RAML
+    description: |
+      Adapter Bridge API for SEMaaS RAML
 /event:
   displayName: Event
   post:
-    description: Send even to end point
+    description: |
+      Send even to end point
     body:
       application/json:
         example: |
@@ -108,20 +110,4 @@ documentation:
                 ]
               }
             schema: !include schemas/serverErrorResponse.json
-      520:
-        description: |
-          Gateway Time-out
-        body:
-          application/json:
-            example: |
-              {
-                "id": "1e002dfc-b17f-11e6-bb2a-afa3f7fde56f",
-                "transactionTime": "2016-08-25T12:09:30.644+00:00",
-                "errors": [
-                  {
-                  "code": "unknown",
-                  "description": "The server encountered an unknown condition"
-                  }
-                ]
-              }
-            schema: !include schemas/serverErrorResponse.json
+            
