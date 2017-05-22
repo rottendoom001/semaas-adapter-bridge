@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "name": "acceptedResponse",
+  "properties": {
+    "id": {
+      "type": "string",
+      "required": true,
+      "description": "This API call unique execution id (GUID format)"
+    },
+    "transactionTime": {
+      "type": "string",
+      "required": true,
+      "description": "Execution timestamp (RFC 3339 format)"
+    }
+  }
+}

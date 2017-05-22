@@ -1,0 +1,127 @@
+#%RAML 0.8
+---
+title: Adapter Bridge API for SEMaaS
+version: 1.0
+baseUri: http://localhost:3000/api/
+documentation:
+  - title: Adapter Bridge
+    content: |
+      Adapter Bridge API for SEMaaS.
+/:
+  displayName: Adapter Bridge API for SEMaaS
+  get:
+    description: Adapter Bridge API for SEMaaS RAML
+/event:
+  displayName: Event
+  post:
+    description: Send even to end point
+    body:
+      application/json:
+        example: |
+          {
+            "id": "c75e365e-3b1d-11e7-8efc-4fac2cb1a949",
+            "endpoint": "apx-maplt001",
+            "body": "eyAiZGF0YSI6IHsgIm1lc3NhZ2UiOiAiaG9sYSBtdW5kbyBsYWxhbGFsYSIgfSB9"
+          }
+        schema: !include schemas/event.json
+    responses:
+      201:
+        description: |
+          The event has been succesfully sent
+        body:
+          application/json:
+            example: |
+              {
+                "id": "c75e365e-3b1d-11e7-8efc-4fac2cb1a949",
+                "transactionTime": "2017-05-17T16:27:55.297+00:00"
+              }
+            schema: !include schemas/acceptedResponse.json
+      400:
+        description: |
+          Bad Request error
+        body:
+          application/json:
+            example: |
+              {
+                "id": "07f3da5a-6dd2-11e6-bd69-21b43f6cd96a",
+                "transactionTime": "2016-08-25T12:09:30.644+00:00",
+                "errors": [
+                  {
+                    "code": "required",
+                    "description": "Should have required property 'body'"
+                  },
+                  {
+                    "code": "required",
+                    "description": "Should have required property 'id'"
+                  }
+                ]
+              }
+            schema: !include schemas/clientErrorResponse.json
+      500:
+        description: |
+          Internal Server Error
+        body:
+          application/json:
+            example: |
+              {
+                "id": "b597ac88-b168-11e6-aa67-1df1fcac2978",
+                "transactionTime": "2016-08-25T12:09:30.644+00:00",
+                "errors": [
+                  {
+                  "code": "internal_error",
+                  "description": "The server encountered an unexpected condition"
+                  }
+                ]
+              }
+            schema: !include schemas/serverErrorResponse.json
+      502:
+        description: |
+          Bad Gateway
+        body:
+          application/json:
+            example: |
+              {
+                "id": "bec2b892-b16e-11e6-95fa-8bee659c81ef",
+                "transactionTime": "2016-08-25T12:09:30.644+00:00",
+                "errors": [
+                  {
+                  "code": "gateway",
+                  "description": "The server received an invalid response"
+                  }
+                ]
+              }
+            schema: !include schemas/serverErrorResponse.json
+      504:
+        description: |
+          Gateway Time-out
+        body:
+          application/json:
+            example: |
+              {
+                "id": "1e002dfc-b17f-11e6-bb2a-afa3f7fde56f",
+                "transactionTime": "2016-08-25T12:09:30.644+00:00",
+                "errors": [
+                  {
+                  "code": "timeout",
+                  "description": "The server did not receive a timely response"
+                  }
+                ]
+              }
+            schema: !include schemas/serverErrorResponse.json
+      520:
+        description: |
+          Gateway Time-out
+        body:
+          application/json:
+            example: |
+              {
+                "id": "1e002dfc-b17f-11e6-bb2a-afa3f7fde56f",
+                "transactionTime": "2016-08-25T12:09:30.644+00:00",
+                "errors": [
+                  {
+                  "code": "unknown",
+                  "description": "The server encountered an unknown condition"
+                  }
+                ]
+              }
+            schema: !include schemas/serverErrorResponse.json

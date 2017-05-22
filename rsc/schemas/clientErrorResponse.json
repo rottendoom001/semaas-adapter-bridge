@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "name": "clientErrorResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "required": true,
+      "type": "string",
+      "description": "This API call unique execution id (GUID format)"
+    },
+    "transactionTime": {
+      "type": "string",
+      "description": "Execution timestamp (RFC 3339 format)"
+    },
+    "errors": {
+      "required": true,
+      "type": "array",
+      "description": "Array of errors",
+      "items": {
+  			"type": "object",
+  			"properties": {
+  				"code": {
+  					"type": "string",
+            "required": true,
+  					"description": "Error code"
+  				},
+  				"description": {
+  					"type": "string",
+            "required": true,
+  					"description": "A short comment"
+  				}
+  			}
+  		}
+    }
+  }
+}

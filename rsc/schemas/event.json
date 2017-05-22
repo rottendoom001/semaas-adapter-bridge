@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "name": "Event",
+  "properties": {
+    "id": {
+      "required": true,
+      "description": "Unique code that identifies the event",
+      "type": "string"
+    },
+    "endpoint": {
+      "required": true,
+      "description": "URL endpont to sed event",
+      "type": "string"
+    },
+    "body": {
+      "required": true,
+      "description": "Event Body",
+      "type": "string"
+    }
+  }
+}
