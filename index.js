@@ -10,6 +10,7 @@ let raml   = path.join(__dirname, 'rsc', 'adapter-bridge-api.raml');
 let times  = require(path.join(__dirname, '/lib/times'));
 let utils  = require(path.join(__dirname, '/lib/utils'));
 let raml2html  = require(path.join(__dirname, '/lib/raml2html'));
+let apxAdapter = require(path.join(__dirname, 'lib/apxAdapter'));
 
 
 osprey.loadFile(raml)
@@ -30,9 +31,18 @@ osprey.loadFile(raml)
     app.post('/event', function(req, res){
       var response = {};
       var now = times.getCurrentTime();
-      response.id = req.body.id;
-      response.transactionTime = now.format(utils.DATETIME_FORMAT);
-      res.send(response);
+
+      apxAdapter.sendPost(req.body, function(err,resp){
+            if(err){
+              response.error = "Error sending apxPost";
+              response.transactionTime = now.format(utils.DATETIME_FORMAT);
+            }else{
+              response.id = req.body.id;
+              response.transactionTime = now.format(utils.DATETIME_FORMAT);
+              console.log(response);
+            } 
+            res.status(resp.status).send(response);
+      });
     });
     app.listen(3000)
   })
