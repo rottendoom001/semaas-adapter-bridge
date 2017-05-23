@@ -23,7 +23,7 @@ documentation:
           {
             "id": "c75e365e-3b1d-11e7-8efc-4fac2cb1a949",
             "endpoint": "apx-maplt001",
-            "body": "eyAiZGF0YSI6IHsgIm1lc3NhZ2UiOiAiaG9sYSBtdW5kbyBsYWxhbGFsYSIgfSB9"
+            "body": "eyJfaWQiOiI1ODViZWM0YTY0YzcyZjc1OWIxZjdlMWMiLCJ0aW1lc3RhbXAiOiIxNDk1NDY2MDc2Iiwic2NoZW1hIjoiQ0FSRFBBWU1FTlRFVkVOVERFTU9NWDEiLCJvZmZzZXQiOjIsImRhdGEiOnsic3RyR3JvdXAiOiJNRkFEVERDQU5MUyIsInBhZ2VTaXplIjoxLCJwYWdlTnVtYmVyIjoxLCJjb2RFc3RydWN0dXJhIjoxMjR9fQ"
           }
         schema: !include schemas/event.json
     responses:
@@ -40,7 +40,7 @@ documentation:
             schema: !include schemas/acceptedResponse.json
       400:
         description: |
-          Bad Request error
+          Bad Request Error
         body:
           application/json:
             example: |
@@ -50,11 +50,11 @@ documentation:
                 "errors": [
                   {
                     "code": "required",
-                    "description": "Should have required property 'body'"
+                    "description": "/id is a required property"
                   },
                   {
                     "code": "required",
-                    "description": "Should have required property 'id'"
+                    "description": "/endpoint is a required property"
                   }
                 ]
               }
@@ -110,4 +110,3 @@ documentation:
                 ]
               }
             schema: !include schemas/serverErrorResponse.json
-            
