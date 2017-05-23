@@ -34,8 +34,9 @@ osprey.loadFile(raml)
 
       apxAdapter.sendPost(req.body, function(err,resp){
             if(err){
-              response.error = "Error sending apxPost";
+              response.id = req.body.id;
               response.transactionTime = now.format(utils.DATETIME_FORMAT);
+              response.errors = resp.errors;
             }else{
               response.id = req.body.id;
               response.transactionTime = now.format(utils.DATETIME_FORMAT);
