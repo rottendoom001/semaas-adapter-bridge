@@ -2,7 +2,8 @@
 ---
 title: Adapter Bridge API for SEMaaS
 version: 1.0
-baseUri: http://localhost:3000/api/
+baseUri: http://localhost:3000/
+
 documentation:
   - title: Adapter Bridge
     content: |
@@ -21,11 +22,17 @@ documentation:
       application/json:
         example: |
           {
-            "id": "c75e365e-3b1d-11e7-8efc-4fac2cb1a949",
-            "endpoint": "apx-maplt001",
-            "body": "eyJfaWQiOiI1ODViZWM0YTY0YzcyZjc1OWIxZjdlMWMiLCJ0aW1lc3RhbXAiOiIxNDk1NDY2MDc2Iiwic2NoZW1hIjoiQ0FSRFBBWU1FTlRFVkVOVERFTU9NWDEiLCJvZmZzZXQiOjIsImRhdGEiOnsic3RyR3JvdXAiOiJNRkFEVERDQU5MUyIsInBhZ2VTaXplIjoxLCJwYWdlTnVtYmVyIjoxLCJjb2RFc3RydWN0dXJhIjoxMjR9fQ"
+            "_id": "585bec4a64c72f759b1f7e1c",
+            "timestamp": "1495466076",
+            "schema": "CARDPAYMENTEVENTDEMOMX1",
+            "offset": 2,
+            "data": {
+              "strGroup": "MFADTDCANLS",
+              "pageSize": 1,
+              "pageNumber": 1,
+              "codEstructura": 124
+              }
           }
-        schema: !include schemas/event.json
     responses:
       201:
         description: |

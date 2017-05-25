@@ -25,7 +25,17 @@ osprey.loadFile(raml, ramlConfig)
     app.use(function(err, req, res, next) {
       if (err) {
         var errors = [];
-        var e = err.requestErrors;
+        var requestErrors = [];
+        var e ;
+
+        if (err.requestErrors) {
+          e = err.requestErrors;
+        } else {
+          console.log(">>>> :", err.message);
+          requestErrors.push({message : err.message});
+          e = requestErrors;
+        }
+
         for (var i = 0 ; i < e.length ; i ++){
           var error = {};
           error.code = e[i].keyword;
@@ -34,7 +44,8 @@ osprey.loadFile(raml, ramlConfig)
           error.description = desc1 + " " + desc2;
           errors.push(error);
         }
-        response.id = (req.body.id) ? req.body.id : 'undefined';
+
+        response.id = ((req.body) && (req.body.id)) ? req.body.id : 'undefined';
         response.transactionTime = now.format(utils.DATETIME_FORMAT);
         response.errors = errors;
         res.status(utils.HTTP_CODE.CLIENT_ERROR).send(response);
