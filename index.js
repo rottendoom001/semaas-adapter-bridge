@@ -1,6 +1,5 @@
 'use strict';
 
-
 let express = require('express');
 let app = express();
 
@@ -11,6 +10,7 @@ let times  = require(path.join(__dirname, '/lib/times'));
 let utils  = require(path.join(__dirname, '/lib/utils'));
 let raml2html  = require(path.join(__dirname, '/lib/raml2html'));
 let apxAdapter = require(path.join(__dirname, 'lib/apxAdapter'));
+let idGenerator = require(path.join(__dirname, 'lib/idGenerator'));
 
 const ramlConfig = {
    "disableErrorInterception": true
@@ -31,21 +31,21 @@ osprey.loadFile(raml, ramlConfig)
         if (err.requestErrors) {
           e = err.requestErrors;
         } else {
-          console.log(">>>> :", err.message);
+          console.log(err);
           requestErrors.push({message : err.message});
           e = requestErrors;
         }
 
         for (var i = 0 ; i < e.length ; i ++){
           var error = {};
-          error.code = e[i].keyword;
-          var desc1 = (e[i].dataPath) ? e[i].dataPath : '';
+          error.code = (e[i].keyword) ? e[i].dataPath : 'clientError';
+          var desc1 = (e[i].dataPath) ? e[i].dataPath + ' ' : '';
           var desc2 = (e[i].message) ? e[i].message : '';
-          error.description = desc1 + " " + desc2;
+          error.description = desc1 + desc2;
           errors.push(error);
         }
 
-        response.id = ((req.body) && (req.body.id)) ? req.body.id : 'undefined';
+        response.id = idGenerator.generateId();
         response.transactionTime = now.format(utils.DATETIME_FORMAT);
         response.errors = errors;
         res.status(utils.HTTP_CODE.CLIENT_ERROR).send(response);
@@ -63,18 +63,19 @@ osprey.loadFile(raml, ramlConfig)
         }
       });
     });
+
     app.post('/event', function(req, res){
       apxAdapter.sendPost(req.body, function(err,resp){
-            if(err){
-              response.id = req.body.id;
-              response.transactionTime = now.format(utils.DATETIME_FORMAT);
-              response.errors = resp.errors;
-            }else{
-              response.id = req.body.id;
-              response.transactionTime = now.format(utils.DATETIME_FORMAT);
-              console.log(response);
-            }
-            res.status(resp.status).send(response);
+        if(err){
+          response.id = idGenerator.generateId();
+          response.transactionTime = now.format(utils.DATETIME_FORMAT);
+          response.errors = resp.errors;
+        }else{
+          response.id = idGenerator.generateId();
+          response.transactionTime = now.format(utils.DATETIME_FORMAT);
+          console.log(response);
+        }
+        res.status(resp.status).send(response);
       });
     });
 
