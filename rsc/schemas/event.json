@@ -3,19 +3,9 @@
   "type": "object",
   "name": "Event",
   "properties": {
-    "id": {
+    "stream": {
       "required": true,
-      "description": "Unique code that identifies the event",
-      "type": "string"
-    },
-    "endpoint": {
-      "required": true,
-      "description": "URL endpont to sed event",
-      "type": "string"
-    },
-    "body": {
-      "required": true,
-      "description": "Event Body",
+      "description": "stream event to send request",
       "type": "string"
     }
   }
